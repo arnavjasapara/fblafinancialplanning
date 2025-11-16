@@ -68,10 +68,8 @@ export const calculateDebtPayoff = (
 export const calculateAggressivePayoff = (
   principal: number,
   interestRate: number,
-  additionalPayment: number
+  totalMonthlyPayment: number
 ): DebtPayoffStrategy => {
-  const basePayment = 79;
-  const newMonthlyPayment = basePayment + additionalPayment;
   const monthlyRate = interestRate / 100 / 12;
   let balance = principal;
   let totalInterest = 0;
@@ -79,7 +77,7 @@ export const calculateAggressivePayoff = (
 
   while (balance > 0 && months < 600) {
     const interestCharge = balance * monthlyRate;
-    const principalPayment = Math.min(newMonthlyPayment - interestCharge, balance);
+    const principalPayment = Math.min(totalMonthlyPayment - interestCharge, balance);
     totalInterest += interestCharge;
     balance -= principalPayment;
     months++;
@@ -87,10 +85,10 @@ export const calculateAggressivePayoff = (
 
   return {
     name: 'Aggressive Payoff Strategy',
-    description: `Paying $${newMonthlyPayment.toFixed(2)} per month (additional $${additionalPayment})`,
+    description: `Paying $${totalMonthlyPayment.toFixed(2)} per month`,
     monthsToPayoff: months,
     totalInterest,
-    monthlyPayment: newMonthlyPayment,
+    monthlyPayment: totalMonthlyPayment,
   };
 };
 

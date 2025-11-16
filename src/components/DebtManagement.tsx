@@ -4,7 +4,7 @@ import { lorissaDebts } from '../data/lorissaData';
 import { calculateDebtPayoff, calculateAggressivePayoff, formatCurrency } from '../utils/calculations';
 
 export default function DebtManagement() {
-  const [additionalPayment, setAdditionalPayment] = useState(200);
+  const [totalMonthlyPayment, setTotalMonthlyPayment] = useState(400);
 
   const currentStrategy = calculateDebtPayoff(
     lorissaDebts.studentLoan.balance,
@@ -15,7 +15,7 @@ export default function DebtManagement() {
   const aggressiveStrategy = calculateAggressivePayoff(
     lorissaDebts.studentLoan.balance,
     lorissaDebts.studentLoan.interestRate,
-    additionalPayment
+    totalMonthlyPayment
   );
 
   const interestSaved = currentStrategy.totalInterest - aggressiveStrategy.totalInterest;
@@ -65,19 +65,19 @@ export default function DebtManagement() {
 
         <div className="mb-6">
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Additional Monthly Payment: {formatCurrency(additionalPayment)}
+            Total Monthly Payment: {formatCurrency(totalMonthlyPayment)}
           </label>
           <input
             type="range"
-            min="0"
+            min="79"
             max="1000"
-            step="50"
-            value={additionalPayment}
-            onChange={(e) => setAdditionalPayment(Number(e.target.value))}
+            step="10"
+            value={totalMonthlyPayment}
+            onChange={(e) => setTotalMonthlyPayment(Number(e.target.value))}
             className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-emerald-600"
           />
           <div className="flex justify-between text-xs text-gray-500 mt-1">
-            <span>$0</span>
+            <span>$79 (minimum)</span>
             <span>$500</span>
             <span>$1,000</span>
           </div>

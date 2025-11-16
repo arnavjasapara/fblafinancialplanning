@@ -65,18 +65,37 @@ export default function DebtManagement() {
 
         <div className="mb-6">
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Total Monthly Payment: {formatCurrency(totalMonthlyPayment)}
+            Total Monthly Payment
           </label>
-          <input
-            type="range"
-            min="79"
-            max="1000"
-            step="10"
-            value={totalMonthlyPayment}
-            onChange={(e) => setTotalMonthlyPayment(Number(e.target.value))}
-            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-emerald-600"
-          />
-          <div className="flex justify-between text-xs text-gray-500 mt-1">
+          <div className="flex items-center space-x-4 mb-4">
+            <div className="flex-1">
+              <input
+                type="range"
+                min="79"
+                max="1000"
+                step="10"
+                value={totalMonthlyPayment}
+                onChange={(e) => setTotalMonthlyPayment(Number(e.target.value))}
+                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-emerald-600"
+              />
+            </div>
+            <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden bg-white">
+              <span className="px-3 py-2 text-gray-500">$</span>
+              <input
+                type="number"
+                min="79"
+                max="10000"
+                step="1"
+                value={totalMonthlyPayment}
+                onChange={(e) => {
+                  const value = Math.max(79, Math.min(10000, Number(e.target.value) || 79));
+                  setTotalMonthlyPayment(value);
+                }}
+                className="w-24 px-2 py-2 border-0 text-right font-semibold text-gray-900 focus:outline-none"
+              />
+            </div>
+          </div>
+          <div className="flex justify-between text-xs text-gray-500">
             <span>$79 (minimum)</span>
             <span>$500</span>
             <span>$1,000</span>

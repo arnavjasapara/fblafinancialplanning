@@ -436,7 +436,7 @@ export default function Recommendations() {
                 <td className="px-4 py-3 text-sm text-right text-emerald-600">-$428</td>
               </tr>
               <tr className="bg-gray-50">
-                <td className="px-4 py-3 text-sm font-semibold text-gray-900">SAVINGS & INVESTING</td>
+                <td className="px-4 py-3 text-sm font-semibold text-gray-900">SAVINGS & DEBT ACCELERATION</td>
                 <td className="px-4 py-3"></td>
                 <td className="px-4 py-3"></td>
                 <td className="px-4 py-3"></td>
@@ -466,7 +466,7 @@ export default function Recommendations() {
                 <td className="px-4 py-3 text-sm text-right text-emerald-600">-$281</td>
               </tr>
               <tr className="bg-emerald-50 font-bold">
-                <td className="px-4 py-3 text-sm text-emerald-900">Total Savings & Investing</td>
+                <td className="px-4 py-3 text-sm text-emerald-900">Total Savings & Debt Acceleration</td>
                 <td className="px-4 py-3 text-sm text-right text-emerald-900">$281</td>
                 <td className="px-4 py-3 text-sm text-right text-emerald-900">$2,433</td>
                 <td className="px-4 py-3 text-sm text-right text-emerald-600">+$2,152</td>

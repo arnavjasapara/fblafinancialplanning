@@ -11,13 +11,13 @@ export default function BudgetAnalysis() {
 
   const recommendedBudget = {
     housing: netIncome * 0.30,
-    transportation: netIncome * 0.15,
-    food: netIncome * 0.12,
-    savings: netIncome * 0.20,
     utilities: netIncome * 0.05,
+    transportation: netIncome * 0.10,
+    groceries: netIncome * 0.07,
+    dining: netIncome * 0.10,
+    entertainment: netIncome * 0.08,
     personal: netIncome * 0.10,
-    entertainment: netIncome * 0.05,
-    other: netIncome * 0.03,
+    savingsAcceleration: netIncome * 0.20,
   };
 
   return (
@@ -87,45 +87,92 @@ export default function BudgetAnalysis() {
       <div className="bg-white rounded-lg p-6 border border-gray-200">
         <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center space-x-2">
           <TrendingDown className="w-5 h-5 text-emerald-600" />
-          <span>Recommended Budget Allocation</span>
+          <span>Recommended Budget: 52/28/20 Framework</span>
         </h3>
-        <p className="text-sm text-gray-600 mb-4">
-          Based on the 50/30/20 rule and personal finance best practices
+        <p className="text-sm text-gray-600 mb-6">
+          52% Needs, 28% Wants, 20% Savings & Debt Acceleration
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {Object.entries(recommendedBudget).map(([category, amount]) => {
-            const currentCategory = budgetCategories.find(
-              (c) => c.category.toLowerCase() === category.toLowerCase()
-            );
-            const currentAmount = currentCategory?.amount || 0;
-            const difference = currentAmount - amount;
-            const percentOfIncome = (amount / netIncome) * 100;
 
-            return (
-              <div key={category} className="border border-gray-200 rounded-lg p-4">
-                <div className="flex justify-between items-start mb-2">
-                  <span className="text-sm font-medium text-gray-900 capitalize">{category}</span>
-                  <span className="text-xs text-gray-500">{formatPercent(percentOfIncome)} of income</span>
-                </div>
-                <div className="space-y-1">
-                  <div className="flex justify-between text-xs">
-                    <span className="text-gray-600">Recommended:</span>
-                    <span className="font-medium">{formatCurrency(amount)}</span>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+          <div className="bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200 rounded-lg p-6">
+            <div className="text-center mb-4">
+              <p className="text-4xl font-bold text-blue-600">52%</p>
+              <p className="text-lg font-semibold text-gray-900">Needs</p>
+              <p className="text-2xl font-bold text-blue-600">{formatCurrency(netIncome * 0.52)}</p>
+              <p className="text-xs text-gray-600 mt-2">/month</p>
+            </div>
+            <p className="text-xs text-gray-700">
+              Housing, utilities, insurance, minimum debt payments, essential transport.
+            </p>
+          </div>
+
+          <div className="bg-gradient-to-br from-green-50 to-green-100 border border-green-200 rounded-lg p-6">
+            <div className="text-center mb-4">
+              <p className="text-4xl font-bold text-green-600">28%</p>
+              <p className="text-lg font-semibold text-gray-900">Wants</p>
+              <p className="text-2xl font-bold text-green-600">{formatCurrency(netIncome * 0.28)}</p>
+              <p className="text-xs text-gray-600 mt-2">/month</p>
+            </div>
+            <p className="text-xs text-gray-700">
+              Dining out, entertainment, discretionary shopping, travel.
+            </p>
+          </div>
+
+          <div className="bg-gradient-to-br from-purple-50 to-purple-100 border border-purple-200 rounded-lg p-6">
+            <div className="text-center mb-4">
+              <p className="text-4xl font-bold text-purple-600">20%</p>
+              <p className="text-lg font-semibold text-gray-900">Savings & Debt</p>
+              <p className="text-2xl font-bold text-purple-600">{formatCurrency(netIncome * 0.20)}</p>
+              <p className="text-xs text-gray-600 mt-2">/month</p>
+            </div>
+            <p className="text-xs text-gray-700">
+              Emergency fund, extra loan payments, retirement, investments.
+            </p>
+          </div>
+        </div>
+
+        <div className="border-t border-gray-200 pt-6">
+          <h4 className="font-semibold text-gray-900 mb-4">Category Breakdown (Needs & Wants)</h4>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {Object.entries(recommendedBudget)
+              .filter(([key]) => key !== 'savingsAcceleration')
+              .map(([category, amount]) => {
+                const percentOfIncome = (amount / netIncome) * 100;
+                let categoryType = 'Needs';
+                if (
+                  category === 'dining' ||
+                  category === 'entertainment' ||
+                  category === 'personal' ||
+                  category === 'groceries'
+                ) {
+                  if (category !== 'groceries') {
+                    categoryType = 'Wants';
+                  }
+                }
+
+                return (
+                  <div key={category} className="border border-gray-200 rounded-lg p-4">
+                    <div className="flex justify-between items-start mb-2">
+                      <span className="text-sm font-medium text-gray-900 capitalize">
+                        {category.replace(/([A-Z])/g, ' $1').trim()}
+                      </span>
+                      <span className="text-xs font-semibold px-2 py-1 rounded bg-gray-100 text-gray-700">
+                        {categoryType}
+                      </span>
+                    </div>
+                    <div className="space-y-1">
+                      <div className="flex justify-between text-xs">
+                        <span className="text-gray-600">Recommended:</span>
+                        <span className="font-medium">{formatCurrency(amount)}</span>
+                      </div>
+                      <div className="flex justify-between text-xs text-gray-500">
+                        <span>{formatPercent(percentOfIncome)} of income</span>
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex justify-between text-xs">
-                    <span className="text-gray-600">Current:</span>
-                    <span className="font-medium">{formatCurrency(currentAmount)}</span>
-                  </div>
-                  <div className="flex justify-between text-xs">
-                    <span className="text-gray-600">Difference:</span>
-                    <span className={`font-medium ${difference > 0 ? 'text-red-600' : 'text-emerald-600'}`}>
-                      {difference > 0 ? '+' : ''}{formatCurrency(difference)}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+                );
+              })}
+          </div>
         </div>
       </div>
 

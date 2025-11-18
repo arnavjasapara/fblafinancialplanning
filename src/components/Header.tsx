@@ -13,6 +13,7 @@ export default function Header({ activeTab, setActiveTab }: HeaderProps) {
     { id: 'retirement', label: 'Retirement' },
     { id: 'housing', label: 'Housing' },
     { id: 'recommendations', label: 'Recommendations' },
+    { id: 'roadmap', label: 'Goal Roadmap' },
     { id: 'presentation', label: 'Presentation Prep' },
   ];
 

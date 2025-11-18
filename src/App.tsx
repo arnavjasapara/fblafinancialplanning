@@ -7,6 +7,7 @@ import RetirementAnalysis from './components/RetirementAnalysis';
 import HousingCalculator from './components/HousingCalculator';
 import Recommendations from './components/Recommendations';
 import PresentationPrep from './components/PresentationPrep';
+import GoalRoadmap from './components/GoalRoadmap';
 
 function App() {
   const [activeTab, setActiveTab] = useState('overview');
@@ -21,6 +22,7 @@ function App() {
         {activeTab === 'retirement' && <RetirementAnalysis />}
         {activeTab === 'housing' && <HousingCalculator />}
         {activeTab === 'recommendations' && <Recommendations />}
+        {activeTab === 'roadmap' && <GoalRoadmap />}
         {activeTab === 'presentation' && <PresentationPrep />}
       </main>
     </div>
